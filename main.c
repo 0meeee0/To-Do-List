@@ -11,20 +11,41 @@ struct tache{
     int dl_year;
     char status[20];
 };
-int j = 0;
 struct tache add[1000];
+int j = 0;
+
+int statadd(int i){
+    do{
+            printf("\n 1-'a realiser' 2-'en cours de realisation' 3-'finalisee' ");
+            scanf("%d", &i);
+            if (i == 1){
+                printf("a realiser\n");
+                strcpy(add[j].status, "a realiser");
+                }
+            else if (i == 2){
+                printf("en cours de realisation\n");
+                strcpy(add[j].status, "en cours de realisation");
+            }
+            else if (i == 3){
+                printf("finalisee'\n");
+                strcpy(add[j].status, "finalisee");
+            }
+            else
+                printf("invalid input\n");
+            }while(i<1 || i>3);
+}
+
 void ajoute(){
 
     printf("\033[0;33m***********|Ajouter des nouvelles taches|**********\n\n\033[0m");
-
+    int i;
     int k;
         do{
             printf("|------------------task ID : %d-------------------|\n", j + 1);
             printf("Titre : ");
             add[j].id = j + 1 ;
             scanf(" %[^\n]", add[j].titre);
-            printf("Status : ");
-            scanf(" %[^\n]", add[j].status);
+            statadd(i);
             printf("Description: ");
             scanf(" %[^\n]", add[j].des);
             printf("Deadline (jj mm aa): ");
@@ -42,6 +63,7 @@ void ajoute(){
         }while(k);
 
 }
+
 
 void modif(){
     int z, mod ;
@@ -97,10 +119,27 @@ void modif_des(int x){
 }
 void modif_stat(int x){
     char n[100];
+    int i;
         printf("\033[0;33m***********|Modifier la description|**********\n\n\033[0m");
         printf("Nouveau status: ");
-        scanf(" %[^\n]",n);
-        strcpy(add[x].status,n);
+        do{
+        printf("\n 1-'a realiser' 2-'en cours de realisation' 3-'finalisee' \n");
+        scanf("%d", &i);
+        if (i == 1){
+            printf("a realiser\n");
+            strcpy(add[x].status, "a realiser");
+            }
+        else if (i == 2){
+            printf("en cours de realisation\n");
+            strcpy(add[x].status, "en cours de realisation");
+        }
+        else if (i == 3){
+            printf("finalisee'\n");
+            strcpy(add[x].status, "finalisee");
+        }
+        else
+            printf("invalid input\n");
+        }while(i<1 || i>3);
 }
 /*void modif_dl(int x){
     char n[100];
