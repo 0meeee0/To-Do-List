@@ -16,7 +16,7 @@ int j = 0;
 
 int statadd(int i){
     do{
-            printf("\n 1-'a realiser' 2-'en cours de realisation' 3-'finalisee' ");
+            printf("\n 1-'a realiser'\n 2-'en cours de realisation'\n 3-'finalisee'\n");
             scanf("%d", &i);
             if (i == 1){
                 printf("a realiser\n");
@@ -69,7 +69,7 @@ void modif(){
     int z, mod ;
     printf("\033[0;33m***********|Modifier une tache|**********\n\n\033[0m");
 
-    printf("Entrer ID du tache a modifier > ");
+    printf("Entrer ID du tache > ");
     scanf("%d",&z);
     for (int x = 0 ; x < j; x++){
         if(add[x].id == z){
@@ -80,7 +80,7 @@ void modif(){
 
             do{
                     printf("\033[0;31m*****  MODIFICATION  *****\n\n");
-            printf("\033[0;32m");// green
+            printf("\033[0;32m");// khdr
 
             printf("1- Modifier la description.\n");
             printf("2- Modifier status.\n");
@@ -141,21 +141,62 @@ void modif_stat(int x){
             printf("invalid input\n");
         }while(i<1 || i>3);
 }
-/*void modif_dl(int x){
-    char n[100];
-        printf("\033[0;33m***********|Modifier la description|**********\n\n\033[0m");
-        printf("ara deadline jdida: ");
-        scanf(" %[^\n]",n);
-        strcpy(add[x].dl,n);
-
-}*/
 
 void suppr(){
     printf("\033[0;33m***********|Supprimer une tache par identifiant|**********\n\n\033[0m");
 }
 
-void srch(){
-    printf("\033[0;33m***********|Rechercher les taches|**********\n\n\033[0m");
+void tri_alph() {
+    struct tache temp;
+    int i, j;
+
+    for (i = 0; i < j-1; i++) {
+        for (j = i+1; j < j; j++) {
+            if (strcmp(add[i].titre, add[j].titre) > 0) {
+                temp = add[i];
+                add[i] = add[j];
+                add[j] = temp;
+            }
+        }
+    }
+
+    printf("Tasks sorted alphabetically.\n");
+}
+
+void aff_tache(){
+    int m;
+    int e;
+    printf("\033[0;33m***********|Afficher les taches|**********\n\n\033[0m");
+    printf("%d Taches valable\n", j);
+    int x=0;
+    if (x < add){
+
+    printf("\033[0;33m***********|Liste des taches|**********\n\n\033[0m");
+
+        for (int i = 0; i < j; i++) {
+            printf("|------------------task ID : %d-------------------|\n", i + 1);
+            printf(">Tache       : %s\n", add[i].titre);
+            printf(">Status      : %s\n", add[i].status);
+            printf(">Description : %s\n", add[i].des);
+            printf(">Deadline    : %d/%d/%d\n", add[i].dl_day, add[i].dl_month, add[i].dl_year);
+            printf("--------------------------------------------------\n");
+        }
+    printf("---------------------------------------------\n");
+    printf("1- Tri alpha\n");
+    printf("2- Tri deadline\n");
+    printf("3- Deadline < 3j ou moins\n");
+    printf("0- Exit\n");
+
+    scanf("%d", &m);
+    switch (m){
+        case 1:
+            tri_alph();
+            break;
+       // case 2://       break;
+    }
+
+}
+
 
 }
 
@@ -170,9 +211,9 @@ void menu(){
     printf("\033[0;32m");// khdr
 
     printf("1- [     Ajouter des nouvelles taches.     ]\n");
-    printf("2- [          Modifier une tache.          ]\n");
+    printf("2- [   Rechercher et modifier une tache.   ]\n");
     printf("3- [  Supprimer une tache par identifiant. ]\n");
-    printf("4- [        Rechercher des taches.         ]\n");
+    printf("4- [          Afficher les taches          ]\n");
     printf("5- [             Statestiques.             ]\n");
     printf("0- [                  EXIT                 ]\n");
 
@@ -201,7 +242,8 @@ int main(){
                 suppr();
                 break;
             case 4:
-                srch();
+                system("cls");
+                aff_tache();
                 break;
             case 5:
                 stats();
